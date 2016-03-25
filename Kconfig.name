@@ -1,0 +1,2 @@
+config BOARD_GIGABYTE_GA_Z77X_UD5H
+	bool "GA-Z77X-UD5H"
