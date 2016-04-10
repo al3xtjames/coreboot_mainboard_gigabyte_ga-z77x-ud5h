@@ -66,7 +66,9 @@ chip northbridge/intel/sandybridge
 				subsystemid 0x1458 0x5001
 			end
 			device pci 1c.1 on # PCIe Port #2
-				subsystemid 0x1458 0x5001
+				device pci 00.0 on # PCIe 1b4b:9172
+					subsystemid 0x1458 0xb000
+				end
 			end
 			device pci 1c.2 off end # PCIe Port #3
 			device pci 1c.3 off end # PCIe Port #4
@@ -74,13 +76,19 @@ chip northbridge/intel/sandybridge
 				subsystemid 0x1458 0x5001
 			end
 			device pci 1c.5 on # PCIe Port #6
-				subsystemid 0x1458 0x5001
+				device pci 00.0 on # PCIe 8086:244e
+					device pci 01.0 on end # PCIe 1106:3044
+				end
 			end
 			device pci 1c.6 on # PCIe Port #7
-				subsystemid 0x1458 0x5001
+				device pci 00.0 on # PCIe 1969:1083 or 1969:1091
+					subsystemid 0x1458 0xe000
+				end
 			end
 			device pci 1c.7 on # PCIe Port #8
-				subsystemid 0x1458 0x5001
+				device pci 00.0 on # PCIe 1b4b:9172
+					subsystemid 0x1458 0xb000
+				end
 			end
 			device pci 1d.0 on # USB2 EHCI #1
 				subsystemid 0x1458 0x5006
@@ -107,7 +115,7 @@ chip northbridge/intel/sandybridge
 					end
 					device pnp 2e.5 off end # Keyboard
 					device pnp 2e.6 off end # Mouse
-					device pnp 2e.7 off end # GPIO
+					device pnp 2e.7 on end # GPIO
 					device pnp 2e.a off end # IR
 				end
 			end
