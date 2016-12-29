@@ -19,9 +19,11 @@ chip northbridge/intel/sandybridge
 		end
 	end
 
+	register "pci_mmio_size" = "2048"
+
 	device domain 0 on
 		subsystemid 0x1458 0x5000 inherit
-		device pci 00.0 on # Host bridge Host bridge
+		device pci 00.0 on # Host bridge
 			subsystemid 0x1458 0x5000
 		end
 		device pci 01.0 on end # PCIe Bridge for discrete graphics
@@ -115,7 +117,7 @@ chip northbridge/intel/sandybridge
 					end
 					device pnp 2e.5 off end # Keyboard
 					device pnp 2e.6 off end # Mouse
-					device pnp 2e.7 on end # GPIO
+					device pnp 2e.7 off end # GPIO
 					device pnp 2e.a off end # IR
 				end
 			end

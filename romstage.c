@@ -33,7 +33,7 @@
 #include <arch/cpu.h>
 #include <cpu/x86/msr.h>
 
-static void it8728f_z77xud5h_disable_reboot(device_t dev)
+static void it8728f_z77xud5h_disable_reboot(pnp_devfn_t dev)
 {
 	/* GPIO SIO settings */
 	ite_reg_write(dev, 0xEF, 0x7E); // magic
@@ -95,7 +95,7 @@ void rcba_config(void)
 	RCBA32(0x35a0) = 0xc0300c03;
 	RCBA32(0x35a4) = 0x00241803;
 
-	pcie_write_config32 (PCI_DEV (0, 0x14, 0), 0xe4, 0x00000000);
+	pci_write_config32 (PCI_DEV (0, 0x14, 0), 0xe4, 0x00000000);
 
 	outw (0x0000, DEFAULT_PMBASE | 0x003c);
 
@@ -150,10 +150,10 @@ void pch_enable_lpc(void)
 	pci_write_config16(PCH_LPC_DEV, LPC_EN, KBC_LPC_EN | MC_LPC_EN |
 			CNF1_LPC_EN | CNF2_LPC_EN | COMA_LPC_EN);
 
-        pci_write_config32(PCH_LPC_DEV, LPC_GEN1_DEC, 0x3c0a01);
-        pci_write_config16(PCH_LPC_DEV, LPC_IO_DEC, 0x10);
+	pci_write_config32(PCH_LPC_DEV, LPC_GEN1_DEC, 0x3c0a01);
+	pci_write_config16(PCH_LPC_DEV, LPC_IO_DEC, 0x10);
 
-        pci_write_config32(PCH_LPC_DEV, 0xac, 0x10000);
+	pci_write_config32(PCH_LPC_DEV, 0xac, 0x10000);
 
 	/* Initialize SuperIO */
 	ite_enable_serial(SERIAL_DEV, CONFIG_TTYS0_BASE);
@@ -161,27 +161,27 @@ void pch_enable_lpc(void)
 }
 
 const struct southbridge_usb_port mainboard_usb_ports[] = {
-        { 1, 5, 0 },
-        { 1, 5, 0 },
-        { 1, 5, 1 },
-        { 1, 5, 1 },
-        { 1, 5, 2 },
-        { 1, 5, 2 },
-        { 1, 5, 3 },
-        { 1, 5, 3 },
-        { 1, 5, 4 },
-        { 1, 5, 4 },
-        { 1, 5, 6 },
-        { 1, 5, 5 },
-        { 1, 5, 5 },
-        { 1, 5, 6 },
+	{ 1, 5, 0 },
+	{ 1, 5, 0 },
+	{ 1, 5, 1 },
+	{ 1, 5, 1 },
+	{ 1, 5, 2 },
+	{ 1, 5, 2 },
+	{ 1, 5, 3 },
+	{ 1, 5, 3 },
+	{ 1, 5, 4 },
+	{ 1, 5, 4 },
+	{ 1, 5, 6 },
+	{ 1, 5, 5 },
+	{ 1, 5, 5 },
+	{ 1, 5, 6 },
 };
 
-void mainboard_get_spd(spd_raw_data *spd) {
-        read_spd (&spd[0], 0x50);
-        read_spd (&spd[1], 0x51);
-        read_spd (&spd[2], 0x52);
-        read_spd (&spd[3], 0x53);
+void mainboard_get_spd(spd_raw_data *spd, bool id_only) {
+	read_spd (&spd[0], 0x50, id_only);
+	read_spd (&spd[1], 0x51, id_only);
+	read_spd (&spd[2], 0x52, id_only);
+	read_spd (&spd[3], 0x53, id_only);
 }
 
 #if 0
