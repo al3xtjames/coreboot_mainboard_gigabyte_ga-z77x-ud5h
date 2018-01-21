@@ -1,25 +1,32 @@
 if BOARD_GIGABYTE_GA_Z77X_UD5H
 
-config BOARD_SPECIFIC_OPTIONS # dummy
+config BOARD_SPECIFIC_OPTIONS
 	def_bool y
-	select BOARD_ROMSIZE_KB_8192
-	select CPU_INTEL_SOCKET_RPGA989
-	select HAVE_ACPI_RESUME
-	select HAVE_ACPI_TABLES
-	select INTEL_INT15
+	select ARCH_X86
+	select CPU_INTEL_SOCKET_LGA1155
 	select NORTHBRIDGE_INTEL_IVYBRIDGE
-	select SANDYBRIDGE_IVYBRIDGE_LVDS
-	select SERIRQ_CONTINUOUS_MODE
-	select SOUTHBRIDGE_INTEL_C216
 	select USE_NATIVE_RAMINIT
+	select SOUTHBRIDGE_INTEL_C216
+	select SUPERIO_ITE_IT8728F
+	select BOARD_ROMSIZE_KB_8192
+	select HAVE_ACPI_TABLES
+	select HAVE_OPTION_TABLE
+	select HAVE_CMOS_DEFAULT
+	select HAVE_ACPI_RESUME
+	select HAVE_SMI_HANDLER
+	select INTEL_INT15
+	select SERIRQ_CONTINUOUS_MODE
+	select MAINBOARD_HAS_LIBGFXINIT
+	select MAINBOARD_HAS_LPC_TPM
+	select TPM
 
-config HAVE_IFD_BIN
-	bool
-	default n
+config DRAM_RESET_GATE_GPIO
+	int
+	default 25
 
-config HAVE_ME_BIN
-	bool
-	default n
+config USBDEBUG_HCD_INDEX
+	int
+	default 2
 
 config MAINBOARD_DIR
 	string
@@ -29,31 +36,40 @@ config MAINBOARD_PART_NUMBER
 	string
 	default "GA-Z77X-UD5H"
 
-config VGA_BIOS_FILE
-	string
-	default "pci8086,0162.rom"
+config MAX_CPUS
+	int
+	default 8
 
 config VGA_BIOS_ID
 	string
 	default "8086,0162"
 
-config MAINBOARD_PCI_SUBSYSTEM_DEVICE_ID
-	hex
-	default 0x5001
+config VGA_BIOS_FILE
+	string
+	default "pci8086,0162.rom"
 
-config MAINBOARD_PCI_SUBSYSTEM_VENDOR_ID
-	hex
-	default 0x1458
+config HAVE_IFD_BIN
+	bool
+	default n
 
-config DRAM_RESET_GATE_GPIO # FIXME: check this
-	int
-	default 60
+config HAVE_ME_BIN
+	bool
+	default n
 
-config MAX_CPUS
-	int
-	default 8
+config HAVE_GBE_BIN
+	bool
+	default n
 
-config USBDEBUG_HCD_INDEX # FIXME: check this
-	int
-	default 2
-endif
+config IFD_BIOS_SECTION
+	string
+	default "0x00200000:0x007fffff"
+
+config IFD_ME_SECTION
+	string
+	default "0x00003000:0x001fffff"
+
+config IFD_GBE_SECTION
+	string
+	default "0x00001000:0x00002fff"
+
+endif # BOARD_GIGABYTE_GA_Z77X_UD5H

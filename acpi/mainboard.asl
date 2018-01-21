@@ -1,8 +1,7 @@
 /*
  * This file is part of the coreboot project.
  *
- * Copyright (C) 2008-2009 coresystems GmbH
- * Copyright (C) 2014 Vladimir Serbinenko
+ * Copyright (C) 2011 Google Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -15,22 +14,10 @@
  * GNU General Public License for more details.
  */
 
-#include <southbridge/intel/bd82x6x/nvs.h>
-
-/* FIXME: check this function.  */
-void acpi_create_gnvs(global_nvs_t *gnvs)
+Scope (\_SB)
 {
-	/* Disable USB ports in S3 by default */
-	gnvs->s3u0 = 0;
-	gnvs->s3u1 = 0;
-
-	/* Disable USB ports in S5 by default */
-	gnvs->s5u0 = 0;
-	gnvs->s5u1 = 0;
-
-	// the lid is open by default.
-	gnvs->lids = 1;
-
-	gnvs->tcrt = 100;
-	gnvs->tpsv = 90;
+	Device (PWRB)
+	{
+		Name (_HID, EisaId("PNP0C0C"))
+	}
 }
