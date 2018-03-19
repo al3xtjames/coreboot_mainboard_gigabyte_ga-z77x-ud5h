@@ -29,6 +29,7 @@
 #include <northbridge/intel/sandybridge/sandybridge.h>
 #include <northbridge/intel/sandybridge/raminit_native.h>
 #include <southbridge/intel/bd82x6x/pch.h>
+#include <southbridge/intel/common/rcba.h>
 #include <southbridge/intel/common/gpio.h>
 #include <arch/cpu.h>
 #include <cpu/x86/msr.h>
@@ -61,7 +62,7 @@ static void it8728f_z77xud5h_disable_reboot(pnp_devfn_t dev)
 	ite_reg_write(IT8728F_EC, 0x30, 0x01);
 }
 
-void rcba_config(void)
+void mainboard_rcba_config(void)
 {
 /*
 	pci_write_config32(PCI_DEV(0, 0x1f, 0), PMBASE, DEFAULT_PMBASE | 1);
@@ -131,9 +132,6 @@ void rcba_config(void)
 	RCBA32(0x3844) = 0x0000e5e4;
 	RCBA32(0x3848) = 0x0000000e;
 */
-	/* Disable unused devices (board specific) */
-	RCBA32(FD) = 0x17ee1fe1;
-
 	/* Enable HECI */
 	RCBA32(FD2) &= ~0x2;
 }
